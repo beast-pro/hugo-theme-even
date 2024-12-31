@@ -338,14 +338,12 @@ Even.addCopyBtn = async function () {
     // 添加点击事件以复制代码
     svgContainer.addEventListener("click", async () => {
       // 选择当前 .chromaDiv 内的 code 元素
-      const codeElement = chromaDiv.querySelector("code");
-      if (!codeElement) {
+      const codeElement = chromaDiv.querySelectorAll("code");
+      if (codeElement.length === 0) {
         console.error("未找到要复制的代码块");
         return;
       }
-
-      const codeToCopy = codeElement.innerText;
-
+      const codeToCopy = codeElement[codeElement.length - 1].innerText;
       try {
         await navigator.clipboard.writeText(codeToCopy);
         handleCopySuccess(svgContainer, copiedSVGContent, svgContent); // 显示复制成功的反馈
